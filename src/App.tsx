@@ -6,6 +6,8 @@ import { ITask } from './interfaces/ITask'
 
 import TaskForm from './components/TaskForm'
 import Panel from './components/Panel'
+import NewPanel from './components/NewPanel';
+import Filter from './components/Filter';
 
 
 function App() {
@@ -61,6 +63,14 @@ function App() {
           <h1>TODO List</h1>
       </header>
 
+      <div className="filtros">
+        <NewPanel
+           task={task}
+           name={""}
+           tasks={[]}
+           onSave={addTask}        
+        />
+
       <div className="container">
         <TaskForm 
             task={task} 
@@ -69,6 +79,13 @@ function App() {
             onChangeSelect={handleSelectChange}
             onSave={addTask}             
         />
+
+      <div className="filtros">
+        <Filter
+          teams={teams}
+        
+        />
+
         <div className="columnas">
           <Panel 
             title={"Tareas Pendientes"} 
@@ -82,14 +99,23 @@ function App() {
             changeStatus={changeStatus}
             deleteTask={deleteTask}
           />
+
           <Panel 
             title={"Tareas Completadas"} 
             tasks={ taskList.filter( task => task.status === 'Completed' ) }
             changeStatus={changeStatus}
             deleteTask={deleteTask}
           />
+{         <Panel 
+            title={"Tareas Pendientes"} 
+            tasks={ taskList.filter( task => task.status === 'TODO' ) }
+            changeStatus={changeStatus}
+            deleteTask={deleteTask}
+          /> }
+          </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

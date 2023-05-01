@@ -11,7 +11,7 @@ function Card(props: ICard){
     }
 
     return (
-
+        
         <div className="card">
             <div className="card-item">
                 <span>Id:</span>

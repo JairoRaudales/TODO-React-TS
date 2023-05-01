@@ -240,3 +240,28 @@ transform: scale(1.1);
   width: 100%;
   max-width: 400px;
 }
+
+.filtros h2 {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.delete-section-btn {
+  background-color: #ef5350;
+  border: none;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.delete-section-btn:hover {
+  background-color: #c62828;
+}
