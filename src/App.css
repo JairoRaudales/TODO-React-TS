@@ -265,3 +265,11 @@ transform: scale(1.1);
 .delete-section-btn:hover {
   background-color: #c62828;
 }
+
+.panel-container {
+  border-radius: 5px;
+  padding: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  transform: translateY(-10px);
+}

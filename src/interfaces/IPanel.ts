@@ -2,7 +2,8 @@ import { ITask } from "./ITask";
 
 export interface IPanelProps {
     title: string;
-    tasks: ITask[];
-    changeStatus: (id: number, status: string) => void;
-    deleteTask: (id: number) => void;
+    tasks: any[];
+    changeStatus: (taskId: number, status: string ) => void;
+    deleteTask: (taskId: number) => void;
+    children?: React.ReactNode;
 }

@@ -34,6 +34,10 @@ function Card(props: ICard){
                 <p>{ props.task.hours }</p>
             </div>
             <div className="card-item">
+                <span>Prioridad:</span>
+                <p>{ props.task.priority }</p>
+            </div>
+            <div className="card-item">
                 <span>Estado:</span>
                 <p>
                 <select value={status} onChange={handleSelectChange} name="estado">                    
@@ -43,6 +47,7 @@ function Card(props: ICard){
                 </select>
                 </p>
             </div>
+
             <button className="delete-btn" onClick={ () => props.deleteTask( props.task.id ) } >x</button>
         </div>
 

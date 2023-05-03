@@ -1,16 +1,20 @@
 import { useState } from 'react';
 
-import { IPanelProps } from '../interfaces/IPanel'
+import { INewPanelProps } from '../interfaces/INewPanel'
 import Card from './Card'
 import NewPanel from './NewPanel';
-import { INewPanelProps } from '../interfaces/INewPanel';
+import { IPanelProps } from '../interfaces/IPanel'
 
-function Panel(props: IPanelProps) {
+
+
+function CreatePanel(props: INewPanelProps) {
+
+    
 
     return (
         <div className="columna">
             <button className="delete-section-btn">Eliminar</button>
-            <h2> { props.title } </h2>
+            <h2> { props.name } </h2>
             {  
                 props.tasks.map((task) => {
                     return (
@@ -26,4 +30,4 @@ function Panel(props: IPanelProps) {
     )
 }
 
-export default Panel;
+export default CreatePanel;

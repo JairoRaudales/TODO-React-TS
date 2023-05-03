@@ -8,6 +8,7 @@ import TaskForm from './components/TaskForm'
 import Panel from './components/Panel'
 import NewPanel from './components/NewPanel';
 import Filter from './components/Filter';
+import { INewPanelProps } from './interfaces/INewPanel';
 
 
 function App() {
@@ -16,7 +17,17 @@ function App() {
   const [task, setTask] = useState<ITask>({ "status" : "TODO", "id": 0 })
   const [taskList, setTaskList] = useState<ITask[]>([])
   const [teams, setTeams] = useState<string[]>(["Development", "QA", "PMs", "BI"])
-  
+  const [priority, setPriority] = useState<string[]>(["Alta", "Media", "Baja"])
+  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [panels, setPanels] = useState<{ name: string; tasks: any[] }[]>([]);
+
+  function handleChangeStatus( taskIndex:number, status: string) {
+    // Lógica para cambiar el estado de la tarea
+  }
+
+  function handleDeleteTask(taskIndex:number) {
+    // Lógica para eliminar la tarea
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTask({...task, [e.target.name]: e.target.value})
@@ -53,6 +64,7 @@ function App() {
       , "name" : "" 
       , "team" : "" 
       , "hours" : 0 
+      , "priority": "media"
     })
   }
 
@@ -65,10 +77,11 @@ function App() {
 
       <div className="filtros">
         <NewPanel
-           task={task}
            name={""}
            tasks={[]}
-           onSave={addTask}        
+           onSave={addTask}
+           changeStatus={changeStatus}
+           deleteTask={deleteTask}
         />
 
       <div className="container">
@@ -77,12 +90,15 @@ function App() {
             teams={teams} 
             onChangeInput={handleInputChange}
             onChangeSelect={handleSelectChange}
+            priority={priority}
             onSave={addTask}             
         />
 
       <div className="filtros">
         <Filter
           teams={teams}
+          tasks={[]}
+          onFilterChange= {(filter: string) => console.log(`Filter changed to: ${filter}`)}
         
         />
 
@@ -106,14 +122,16 @@ function App() {
             changeStatus={changeStatus}
             deleteTask={deleteTask}
           />
-{         <Panel 
-            title={"Tareas Pendientes"} 
-            tasks={ taskList.filter( task => task.status === 'TODO' ) }
-            changeStatus={changeStatus}
-            deleteTask={deleteTask}
-          /> }
           </div>
-        </div>
+        {panels.map((newpanel) => (
+        <Panel
+          title={newpanel.name}
+          tasks={newpanel.tasks}
+          changeStatus={handleChangeStatus}
+          deleteTask={handleDeleteTask}
+        />
+         ))}
+      </div>
       </div>
     </div>
     </div>
