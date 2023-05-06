@@ -1,11 +1,10 @@
-import { ITask } from "./ITask";
+import { ITask } from '../interfaces/ITask';
+import { IPanelProps } from './IPanel';
+import { IPanel } from './IPanel';
 
 export interface INewPanelProps {
-    name: string;
-    tasks: any[];
-    onSave: (newpanel: INewPanelProps) => void;
-    changeStatus: (taskId: number, status: string) => void;
-    deleteTask: (taskId: number) => void;
-    children?: React.ReactNode;
+  onAddPanel: (title: string) => void;
+  panels : IPanelProps[];
 }
+
     

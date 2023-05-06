@@ -1,133 +1,45 @@
-/* import { useState , useEffect } from 'react';
-
-import { INewPanelProps } from '../interfaces/INewPanel'
-
+import { useState } from 'react';
+import { IPanelProps } from '../interfaces/IPanel';
+import Card from './Card';
+import { ITask } from '../interfaces/ITask';
+import { INewPanelProps } from '../interfaces/INewPanel';
 
 function NewPanel(props: INewPanelProps) {
+  const [title, setTitle] = useState('');
+  const [showBubble, setShowBubble] = useState(false); // estado para manejar si se muestra la burbuja de mensaje
+  const [showButton, setShowButton] = useState(false); // estado para manejar si se muestra el botón
 
-    const [error, setError] = useState<string[]>([])
-    const [inputValue, setInputValue] = useState('');
-      const [panelName, setPanelName] = useState('');
-
-
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setPanelName(event.target.value.trim()); // Actualiza el estado con el valor del input sin espacios en blanco al inicio y al final
-    }
-    
-  
-    const handleAddClick = () => {
-      if (panelName !== '') { // Verifica que el nombre del panel no sea vacío
-        const newpanel: INewPanelProps = { // Crea el nuevo panel con el nombre ingresado
-          name: panelName,
-          tasks: [],
-          onSave: () => {}
-        
-        };
-        props.onSave(newpanel); // Llama a la función onSave del props para guardar el nuevo panel
-        setPanelName(''); // Limpia el input
+  const handleAddPanel = () => {
+    if (title.trim() !== '') {
+      const isPanelExist = props.panels.some(panel => panel.title === title);
+      if(isPanelExist) {
+        setShowBubble(true); // actualizamos el estado para mostrar la burbuja de mensaje
+        setShowButton(false); // ocultamos el botón
+      } else {
+        props.onAddPanel(title);
+        setTitle('');
+        setShowBubble(false); // reseteamos el estado para ocultar la burbuja de mensaje si estaba siendo mostrada
+        setShowButton(false); // ocultamos el botón
       }
     }
-
-
-/*     const validateForm = () => {
-        
-        let newError: string[] = [];
-        
-
-        if(!props.task.name || props.task.name === '') {            
-            newError = [...newError, 'El Panel ya existe']            
-        }
-
-       
-    }
- */
-
-/*     return (
-        <div className="newpanel">
-        <h2>Agregar nuevo Panel</h2>
-        <form>
-          <label htmlFor="filtro-tarea">Panel:</label>
-          <input type="text" id="newpanel" name="newpanel" placeholder="New Panel Name" value={panelName} onChange={handleInputChange} />
-          {panelName ? (
-            <button type="button" onClick={handleAddClick}>Add</button>
-          ) : null}
-          <ul>
-            <li></li>
-          </ul>
-        </form>
-      </div>
-
-
-    )
-}
-
-export default NewPanel; */ 
-import { useState } from 'react';
-import { INewPanelProps } from '../interfaces/INewPanel';
-import Card from './Card';
-import Panel from './Panel';
-import CreatePanel from './CreatePanel';
-import { title } from 'process';
-
-function NewPanel(props: INewPanelProps) {
-  const [newPanelName, setNewPanelName] = useState('');
-  const [panels, setPanels] = useState<{ name: string; tasks: any[] }[]>([]);
-
-  function handleChangeStatus( taskIndex:number, status: string) {
-    // Lógica para cambiar el estado de la tarea
-  }
-
-  function handleDeleteTask(taskIndex:number) {
-    // Lógica para eliminar la tarea
-  }
-
-  const handleAddClick = () => {
-    const newPanel = {
-      name: newPanelName,
-      tasks: [],
-    };
-    setPanels([...panels, newPanel]);
-    setNewPanelName('');
   };
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewPanelName(event.target.value);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+    setShowButton(e.target.value.trim() !== ''); // actualizamos el estado para mostrar u ocultar el botón según el contenido del campo de texto
   };
 
   return (
-    <div className="newpanel">
-      <h2>Agregar nuevo Panel</h2>
-      <form>
-        <label htmlFor="filtro-tarea">Panel:</label>
-        <input
-          type="text"
-          id="newpanel"
-          name="newpanel"
-          placeholder="New Panel Name"
-          value={newPanelName}
-          onChange={handleNameChange}
-        />
-        <button type="button" onClick={handleAddClick}>
-          Add
-        </button>
-      </form>
-      <div className="panel-container">
-      {panels.map((newpanel) => (
-        <Panel title={newpanel.name} tasks={newpanel.tasks}  changeStatus={handleChangeStatus}
-        deleteTask={handleDeleteTask}>
-          <button className="delete-section-btn">Eliminar</button>
-            <h2> { title } </h2>
-          {newpanel.tasks.map((task) => (
-            <Card
-              task={task}
-              changeStatus={props.changeStatus}
-              deleteTask={props.deleteTask}
-            />
-          ))}
-        </Panel>
-      ))}
-      </div>
+    <div className="new-panel">
+      <h2>Agregar un nuevo Panel</h2>
+      <input
+        type="text"
+        placeholder="Nombre del panel"
+        value={title}
+        onChange={handleInputChange}
+      />
+      {showButton && <button type="button" onClick={handleAddPanel}>Agregar</button>} {/* mostramos el botón si se debe mostrar */}
+      {showBubble && <div className="bubble">Este Panel ya existe!</div>} {/* mostramos la burbuja de mensaje si se debe mostrar */}
     </div>
   );
 }

@@ -8,7 +8,6 @@ export interface ITask {
     status?: string;
     hours?: number;
     team?: string;
-    priority?: string;
 }
 
 export interface ITaskFormProps {
@@ -16,10 +15,8 @@ export interface ITaskFormProps {
     teams: string[];
     onChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onChangeSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-    priority: string[];
     onSave: () => void;
 }
-
 
 
 export interface IFilterProps {

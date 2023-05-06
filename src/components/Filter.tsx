@@ -1,25 +1,38 @@
-import { useState , useEffect } from 'react';
-import { ITask, IFilterProps } from '../interfaces/ITask'
+import React from "react";
 
-function Filter(props: IFilterProps){
-    return(
-        <div className="filtros">
-        <h2>Filtros</h2>
-        <form>
-        
-            <label htmlFor="filtro-estado">Equipo:</label>
-            <select id="filtro-estado" name="filtro-estado">
-                <option value="">Todos</option>
-                <option value="QA">QA</option>
-                <option value="Development">Development</option>
-                
-            </select>
-            
-           
-        </form>
-    </div>
-    )
+type FilterChangeEvent = React.ChangeEvent<HTMLSelectElement>;
 
+interface IFilter {
+  keyName: string;
+  onChangeSelect: (event: FilterChangeEvent) => void;
 }
+
+const Filter = ({ keyName, onChangeSelect }: IFilter) => {
+
+  const handleChange = (event: FilterChangeEvent) => {
+    onChangeSelect(event);
+
+   }
+  
+  return (
+    <div >
+      <h2>Filtros</h2> 
+      <div style={{width:"400px"
+                , marginTop:"20px"
+                , backgroundColor:"#333333"
+                , padding:"20px"
+                , borderRadius:"10px" }}>
+          <label >Equipo:</label>
+          <select value={keyName} onChange={onChangeSelect}>
+            <option value="">Todos</option>
+            <option value="Development">Development</option>
+            <option value="QA">QA</option>
+            <option value="PM">PM</option>
+            <option value="BI">BI</option>
+          </select>
+      </div>
+    </div>
+  );
+};
 
 export default Filter;

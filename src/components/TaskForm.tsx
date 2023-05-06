@@ -101,22 +101,12 @@ function TaskForm(props: ITaskFormProps) {
                         />
                     </td>
                 </tr>
-                <tr>
-                    <td><label>Prioridad</label></td>
-                    <td>
-                        <select name="priority" value={props.task.priority} onChange={props.onChangeSelect}>
-                            <option value="alta">Alta</option>
-                            <option value="media">Media</option>
-                            <option value="baja">Baja</option>
-                        </select>
-                    </td>
-                </tr>
 
                 <tr>
                     <td></td>
                     
                         <td>
-                            <button type="button" onClick={ validateForm }  >Añadir</button>
+                            <button type="button" onClick={ validateForm }>Añadir</button>
                             { errores.length > 0 && (
                             <div>
                                 <h2>Errores</h2>
